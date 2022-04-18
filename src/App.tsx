@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { Suspense, useContext } from 'react';
+import { Link, Outlet, Routes, Route } from 'react-router-dom';
+
 import logo from './logo.svg';
 import './App.css';
 
-import { Link, Outlet } from 'react-router-dom';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+
+const Counter = React.lazy(() => import('./routers/Counter'));
+const NewsFeed = React.lazy(() => import('./routers/NewsFeed'));
+const UseCallbackDemo = React.lazy(() => import('./routers/UseCallbackDemo'));
+const UseMemoDemo = React.lazy(() => import('./routers/UseMemoDemo'));
+
 
 const themes = {
   light: {
@@ -20,12 +27,12 @@ const themes = {
 
 export const ThemeContext = React.createContext(themes.light);
 
-function App() {
 
-  const theme = themes.dark;
+function Layout() {
+  const theme = useContext(ThemeContext);
 
   return (
-    <ThemeContext.Provider value={theme}>
+    <div>
       <Navbar bg={theme.name} variant={theme.name as "light" | "dark" | undefined}>
         <Container>
           {/* Render <Navbar.Brand> as <Link> to enable react router*/}
@@ -46,6 +53,41 @@ function App() {
       <Container>
         <Outlet />
       </Container>
+    </div>
+  );
+}
+
+
+function App() {
+
+  return (
+    <ThemeContext.Provider value={themes.dark}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<h2>Home</h2>} />
+          <Route path="counter" element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Counter count={0} />
+            </Suspense>
+          } />
+          <Route path="newsfeed" element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <NewsFeed />
+            </Suspense>
+          } />
+          <Route path="usecallback" element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <UseCallbackDemo />
+            </Suspense>
+          } />
+          <Route path="usememo" element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <UseMemoDemo />
+            </Suspense>
+          } />
+          <Route path="*" element={<p>There's nothing here!</p>} />
+        </Route>
+      </Routes>
     </ThemeContext.Provider>
   )
 }
