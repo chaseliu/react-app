@@ -8,6 +8,8 @@ import Counter from './routers/Counter';
 import NewsFeed from './routers/NewsFeed';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import UseCallbackDemo from './routers/UseCallbackDemo';
+import UseMemoDemo from './routers/UseMemoDemo';
 
 
 const root = ReactDOM.createRoot(
@@ -20,6 +22,8 @@ root.render(
         <Route path="/" element={<App />}>
           <Route path="counter" element={<Counter count={0} />} />
           <Route path="newsfeed" element={<NewsFeed />} />
+          <Route path="usecallback" element={<UseCallbackDemo />} />
+          <Route path="usememo" element={<UseMemoDemo />} />
           <Route path="*" element={<p>There's nothing here!</p>} />
         </Route>
       </Routes>

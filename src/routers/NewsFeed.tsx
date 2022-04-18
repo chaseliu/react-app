@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from 'react';
+import React, { useEffect, useState, useReducer, Fragment } from 'react';
 
 import axios from 'axios';
 import { Container } from 'react-bootstrap';
@@ -99,7 +99,7 @@ export default function NewsFeed() {
   const [{ data, isLoading, isError }, doFetch] = useDataApi(defaultUrl, { hits: [] });
 
   return (
-    <Container>
+    <Fragment>
       <h2>News Feed</h2>
       <form onSubmit={e => {
         doFetch(`http://hn.algolia.com/api/v1/search?query=${query}`);
@@ -127,6 +127,6 @@ export default function NewsFeed() {
           ))}
         </ul>
       )}
-    </Container>
+    </Fragment>
   );
 }

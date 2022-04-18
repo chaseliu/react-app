@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import { Link, Outlet } from 'react-router-dom';
-import { Navbar, Container, Nav } from 'react-bootstrap';
+import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 
 const themes = {
   light: {
@@ -36,10 +36,16 @@ function App() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/counter">Counter</Nav.Link>
             <Nav.Link as={Link} to="/newsfeed">News Feed</Nav.Link>
+            <NavDropdown title="Optimization" id="basic-nav-dropdown">
+              <NavDropdown.Item as={Link} to="/usecallback">useCallback</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/usememo">useMemo</NavDropdown.Item>
+            </NavDropdown>
           </Nav>
         </Container>
       </Navbar>
-      <Outlet />
+      <Container>
+        <Outlet />
+      </Container>
     </ThemeContext.Provider>
   )
 }

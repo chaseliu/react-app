@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from 'react';
+import React, { Fragment, useContext, useReducer } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import { ThemeContext } from '../App';
 
@@ -32,7 +32,7 @@ export default function Counter(props: CounterState) {
   const theme = useContext(ThemeContext);
 
   return (
-    <Container>
+    <Fragment>
       <h2>Counter</h2>
       <p>You clicked {state.count} times</p>
       <Button onClick={() => dispatch({ type: 'DECREMENT' })}>-</Button>{' '}
@@ -40,6 +40,6 @@ export default function Counter(props: CounterState) {
         Reset
       </Button>{' '}
       <Button onClick={() => dispatch({ type: 'INCREMENT' })}>+</Button>
-    </Container>
+    </Fragment>
   );
 };
